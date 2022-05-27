@@ -129,6 +129,7 @@ def get_queryset(request):
                 s = specimen.pk
                 initial = specimen.initial_ID
                 collection_code = specimen.collection_code
+                location = str(specimen.location)
                 specimen = str(specimen.dna_barcode)
 
                 initial, identity = needle(query, specimen, initial)
@@ -144,6 +145,7 @@ def get_queryset(request):
                 results.collection_code = collection_code
                 results.initial = initial
                 results.identity = identity
+                results.location = location
 
                 results.save()
 
@@ -158,7 +160,7 @@ def get_queryset(request):
         results = Resultss.objects.all()
 
         allfilter = Resultss.objects.all().order_by('-identity')
-        paginator = Paginator(allfilter, 10)
+        paginator = Paginator(allfilter, 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
@@ -226,7 +228,7 @@ def finalize(align1, align2):
             score += gap_penalty
     
     identity = float(identity) / len(align1) * 100
-
+    identity = round(identity, 3)
 
     # print ('Identity =', "%3.3f" % identity, 'percent')
     # print ('Score =', score)

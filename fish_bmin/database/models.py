@@ -118,7 +118,7 @@ class Specimen(models.Model):
     collector = models.ManyToManyField(Collector)
     photographer = models.ForeignKey(Photographer, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, blank=False, default="Encoded")
-    dna_barcode = models.TextField(max_length = 700)
+    dna_barcode = models.TextField(max_length = 700, blank=True, default="")
 
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     # last_updated = models.DateTimeField(auto_now=True, null=True)
@@ -145,6 +145,7 @@ class Resultss(models.Model):
     initial = models.CharField(max_length=50, default="")
     collection_code = models.CharField(max_length=50)
     identity = models.FloatField()
+    location = models.CharField(max_length=50, default="")
 
     def __str__(self):
         return self.collection_code

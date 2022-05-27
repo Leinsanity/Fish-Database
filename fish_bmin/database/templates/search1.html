@@ -19,7 +19,7 @@
 
     <style>
     #headerid {
-      color:cyan
+      color:whitesmoke
     }
 
     #pagenumber {
@@ -40,7 +40,7 @@
       <form action = "{% url 'search' %}" method="get" value="{{request.GET.query}}">
         <div class="form-group">
         <label id="headerid" for="exampleFormControlTextarea1">Please input barcode: </label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" input name="query" type="text" value="{{request.GET.query}}"/></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" input name="query" type="text" value="{{request.GET.query}}"/></textarea>
         <input type="submit" required minlength="500" name="Submit" value="Search"/>
       </div>
     </form>
@@ -51,10 +51,8 @@
             <tr>
               <th scope="col">Initial Identity</th>
               <th scope="col">Collection Code</th>
+              <th scope="col">Location</th>
               <th scope="col">Percentage Identity</th>
-              <!-- <th scope="col">Contact</th>
-              <th scope="col">Education</th>
-              <th scope="col"></th> -->
             </tr>
           </thead>
           <tbody>
@@ -63,16 +61,17 @@
               {% for r in page_obj %}
             <tr>
               <td> <strong> {{ r.initial }} </strong> </td>
-              <td> <small> {{ r.collection_code }} </small> </td>
+              <td> <strong> {{ r.collection_code }} </strong> </td>
+              <td> <strong> {{ r.location }} </strong> </td>
               <td> {{ r.identity }} </td>
-            </tr>s
+            </tr>
             {% endfor %}
 
           </tbody>
         </table>
       </div>
 
-      <div class="pagination center">
+      <!-- <div class="pagination center">
         <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?q={{request.GET.q}}&page=1" class="btn btn-dark">&laquo; first</a>
@@ -88,7 +87,7 @@
                 <a href="?q={{request.GET.q}}&page={{ page_obj.paginator.num_pages }}" class="btn btn-light">last &raquo;</a>
             {% endif %}
         </span>
-      </div>
+      </div> -->
 
     </div>
   </div>
